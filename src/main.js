@@ -19,9 +19,8 @@ Vue.use(messagePlugin)
 Vue.use(Vuelidate)
 Vue.filter('dateFilter', dateFilter)
 
-firebase.initializeApp(firebaseConfig)
-
 let app
+firebase.initializeApp(firebaseConfig)
 firebase.auth().onAuthStateChanged(() => {
   if (!app) {
     app = new Vue({
