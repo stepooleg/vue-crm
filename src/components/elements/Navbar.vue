@@ -40,6 +40,7 @@
 </template>
 
 <script>
+import { LOGOUT_WITH_FIREBASE } from '@/store/action-types'
 export default {
   name: 'Navbar',
   data: () => ({
@@ -62,7 +63,8 @@ export default {
     }
   },
   methods: {
-    logout () {
+    async logout () {
+      await this.$store.dispatch(LOGOUT_WITH_FIREBASE)
       this.$router.push('/login?message=logout')
     }
   }

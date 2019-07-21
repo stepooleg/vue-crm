@@ -47,6 +47,7 @@
 <script>
 import { email, required, minLength } from 'vuelidate/lib/validators'
 import messages from '@/utils/messages'
+import { LOGIN_WITH_FIREBASE } from '@/store/action-types'
 
 export default {
   name: 'Login',
@@ -72,8 +73,10 @@ export default {
         email: this.email,
         password: this.password
       }
-      await this.$store.dispatch('LOGIN_WITH_FIREBASE', formData)
-      this.$router.push('/')
+      try {
+        await this.$store.dispatch(LOGIN_WITH_FIREBASE, formData)
+        this.$router.push('/')
+      } catch (e) {}
     }
   }
 }

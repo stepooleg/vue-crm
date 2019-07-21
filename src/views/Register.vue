@@ -62,6 +62,7 @@
 
 <script>
 import { email, required, minLength } from 'vuelidate/lib/validators'
+import { REGISTER_IN_FIREBASE } from '@/store/action-types'
 export default {
   name: 'Register',
   data: () => ({
@@ -74,10 +75,10 @@ export default {
     email: { email, required },
     password: { required, minLength: minLength(6) },
     name: { required },
-    agree: {checked: v => v}
+    agree: { checked: v => v }
   },
   methods: {
-    submitHandler () {
+    async submitHandler () {
       if (this.$v.$invalid) {
         this.$v.$touch()
       }
@@ -86,8 +87,10 @@ export default {
         password: this.password,
         name: this.name
       }
-      console.log(formData)
-      this.$router.push('/')
+      try {
+        await this.$store.dispatch(REGISTER_IN_FIREBASE, formData)
+        this.$router.push('/')
+      } catch (e) {}
     }
   }
 }
