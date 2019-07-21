@@ -16,7 +16,7 @@
                         href="#"
                         data-target="dropdown"
                     >
-                        USER NAME
+                        {{userName}}
                         <i class="material-icons right">arrow_drop_down</i>
                     </a>
 
@@ -41,6 +41,7 @@
 
 <script>
 import { LOGOUT_WITH_FIREBASE } from '@/store/action-types'
+
 export default {
   name: 'Navbar',
   data: () => ({
@@ -48,6 +49,11 @@ export default {
     dateInterval: null,
     dropdown: null
   }),
+  computed: {
+    userName () {
+      return this.$store.getters.getUserName
+    }
+  },
   mounted () {
     this.dateInterval = setInterval(() => {
       this.date = new Date()

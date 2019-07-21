@@ -1,5 +1,6 @@
 import firebase from 'firebase/app'
 import { LOGIN_WITH_FIREBASE, LOGOUT_WITH_FIREBASE, REGISTER_IN_FIREBASE } from './action-types'
+import { CLEAR_INFO_USER } from './mutations-types'
 export default {
   actions: {
     async [LOGIN_WITH_FIREBASE] ({ commit }, { email, password }) {
@@ -10,8 +11,9 @@ export default {
         throw e
       }
     },
-    async [LOGOUT_WITH_FIREBASE] () {
+    async [LOGOUT_WITH_FIREBASE] ({ commit }) {
       await firebase.auth().signOut()
+      commit(CLEAR_INFO_USER)
     },
     async [REGISTER_IN_FIREBASE] ({ dispatch, commit }, { email, password, name }) {
       try {
